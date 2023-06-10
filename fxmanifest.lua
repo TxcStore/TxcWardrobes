@@ -5,7 +5,7 @@ lua54 'yes'
 
 author 'TxcStore'
 description 'One of the most versatile wardrobe systems out there, which is compatible with the ESX framework. It offers high customisability, in terms of interactions and the visuals itself.' 
-version '0.9.1 Pre-Release'
+version '0.9.2 Pre-Release'
 
 dependencies {
     'ox_lib',

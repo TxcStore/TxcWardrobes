@@ -23,4 +23,5 @@ Config.OxTarget = false -- if true you can use ox_target to interact with the wa
 Config.PointDistance = 1.5 -- this changes the interaction distance of the wardrobe
 Config.MarkerDistance = 10.0 -- this changes the draw distance of markers
 
-Config.MenuPosition = 'top-right' -- choose between 'top-left', 'top-right', 'bottom-left' and 'bottom-right'
+Config.Menu = 'oxmenu' -- choose the menu that is displayed when you change your outfit 'oxmenu' and 'oxcontext'
+Config.MenuPosition = 'top-right' -- choose between 'top-left', 'top-right', 'bottom-left' and 'bottom-right' ! ONLY FOR OXMENU !

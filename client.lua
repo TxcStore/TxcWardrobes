@@ -131,9 +131,11 @@ end
 -- opens the wardrobe menu using ox_lib
 function openWardrobe(data)
     lib.hideMenu()
+    lib.hideContext()
 
     local elements = {{
         label = locale['civilian_outfit'],
+        title = locale['civilian_outfit'],
         description = locale['civilian_desc'],
         args = {
             name = '',
@@ -145,6 +147,7 @@ function openWardrobe(data)
     for i, v in ipairs(data.options) do
         table.insert(elements, {
             label = v.label,
+            title = v.label,
             description = v.desc,
             args = { 
                 name = v.label,
@@ -155,32 +158,104 @@ function openWardrobe(data)
         })
     end
 
-    lib.registerMenu({
-        id = 'txc_wardrobe_main',
-        title = data.label,
-        position = Config.MenuPosition,
-        options = elements
-    }, function(selected, scrollIndex, args)
-        local playerPed = PlayerPedId()
-        
-        cleanPlayer(playerPed)
-
-        if args.name == workoutfit then
-            Config.CustomNotify(locale['title'], locale['already_wearing'], 'error')
-            return
+    if Config.Menu == 'oxmenu' then
+        local elements = {{
+            label = locale['civilian_outfit'],
+            description = locale['civilian_desc'],
+            args = {
+                type = 'civ',
+                name = '',
+                armor = 0,
+            },
+            icon = 'fa-shirt'
+        }}
+    
+        for i, v in ipairs(data.options) do
+            table.insert(elements, {
+                label = v.label,
+                description = v.desc,
+                args = { 
+                    type = 'work',
+                    name = v.label,
+                    armor = v.armor or 0, 
+                    outfit = v.outfits[grade] or v.outfits[0]
+                },
+                icon = v.icon
+            })
         end
 
-        if selected == 1 then
-            setCivilianOutfit()
-        else
-            setWorkOutfit(playerPed, args.outfit, args.name)
+        lib.registerMenu({
+            id = 'txc_wardrobe_main',
+            title = data.label,
+            position = Config.MenuPosition,
+            options = elements
+        }, function(selected, scrollIndex, args)
+            executeOutfitChange(args.type, args.name, args.outfit, args.armor)
+        end)
+    
+        lib.showMenu('txc_wardrobe_main')
+    end
+
+    if Config.Menu == 'oxcontext' then
+        local elements = {{
+            title = locale['civilian_outfit'],
+            description = locale['civilian_desc'],
+            icon = 'fa-shirt',
+            args = {
+                type = 'civ',
+                name = '',
+                armor = 0,
+            },
+            onSelect = function(args)
+                executeOutfitChange(args.type, args.name, args.outfit, args.armor)
+            end,
+        }}
+    
+        for i, v in ipairs(data.options) do
+            table.insert(elements, {
+                title = v.label,
+                description = v.desc,
+                icon = v.icon,
+                args = { 
+                    type = 'work',
+                    name = v.label,
+                    armor = v.armor or 0, 
+                    outfit = v.outfits[grade] or v.outfits[0]
+                },
+                onSelect = function(args)
+                    executeOutfitChange(args.type, args.name, args.outfit, args.armor)
+                end,
+            })
         end
 
-        SetPedArmour(playerPed, args.armor)
-    end)
+        lib.registerContext({
+            id = 'txc_wardrobe_main',
+            title = data.label,
+            options = elements
+        })
 
-    lib.showMenu('txc_wardrobe_main')
+        lib.showContext('txc_wardrobe_main')
+    end
 end
+
+function executeOutfitChange(type, name, outfit, armor)
+    local playerPed = PlayerPedId()
+            
+    cleanPlayer(playerPed)
+
+    if name == workoutfit then
+        Config.CustomNotify(locale['title'], locale['already_wearing'], 'error')
+        return
+    end
+
+    if type == 'civ' then
+        setCivilianOutfit()
+    else
+        setWorkOutfit(playerPed, outfit, name)
+    end
+
+    SetPedArmour(playerPed, armor)
+end 
 
 -- removes dirt and blood from the player
 function cleanPlayer(playerPed)
