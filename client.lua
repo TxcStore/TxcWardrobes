@@ -77,7 +77,7 @@ function setupTarget(name, data)
                     end,
                     onSelect = function(data)
                         print('helo')
-                        openWardrobe(data.data)
+                        openMainMenu(data.data)
                     end
                 }
             }
@@ -92,7 +92,7 @@ function setupKeyBind(point, data)
     function point:nearby()
         if job == data.job or data.job == 'none' then
             if IsControlJustReleased(0, Config.Key) then
-                openWardrobe(data)
+                openMainMenu(data)
             end
         end
     end
@@ -128,8 +128,87 @@ function setupMarker(k, v)
     end
 end
 
+function openMainMenu(data)
+    lib.hideMenu()
+    lib.hideContext()
+
+    if Config.Menu == 'oxmenu' then
+        lib.registerMenu({
+            id = 'txc_wardrobe_main',
+            title = data.label,
+            position = Config.MenuPosition,
+            options = {
+                {
+                    label = locale['saved_outfits'],
+                    description = locale['saved_outfits_desc'],
+                    args = { type = 'saved_outfits' },
+                    icon = 'fa-floppy-disk'
+                },
+                {
+                    label = locale['society_outfits'],
+                    description = locale['society_outfits_desc'],
+                    args = { 'society_outfits' },
+                    icon = 'fa-briefcase'
+                },
+            }
+        }, function(selected, scrollIndex, args)
+            if args[1] == 'saved_outfits' then
+                
+            end
+
+            if args[1] == 'society_outfits' then
+                openSocietyWardrobe(data)
+            end
+        end)
+    
+        lib.showMenu('txc_wardrobe_main')
+    end
+
+    if Config.Menu == 'oxcontext' then
+        lib.registerContext({
+            id = 'txc_wardrobe_main',
+            title = data.label,
+            position = Config.MenuPosition,
+            options = {
+                {
+                    label = locale['saved_outfits'],
+                    description = locale['saved_outfits_desc'],
+                    args = { type = 'saved_outfits' },
+                    icon = 'fa-floppy-disk',
+                    onSelect = function(args)
+                        if args[1] == 'saved_outfits' then
+                
+                        end
+            
+                        if args[1] == 'society_outfits' then
+                            openSocietyWardrobe(data)
+                        end
+                    end,
+                },
+                {
+                    label = locale['society_outfits'],
+                    description = locale['society_outfits_desc'],
+                    args = { 'society_outfits' },
+                    icon = 'fa-briefcase',
+                    onSelect = function(args)
+                        if args[1] == 'saved_outfits' then
+                
+                        end
+            
+                        if args[1] == 'society_outfits' then
+                            openSocietyWardrobe(data)
+                        end
+                    end,
+                },
+            }
+        })
+
+        lib.showContext('txc_wardrobe_main')
+    end
+end
+
 -- opens the wardrobe menu using ox_lib
-function openWardrobe(data)
+function openSocietyWardrobe(data)
     lib.hideMenu()
     lib.hideContext()
 
@@ -318,4 +397,3 @@ function replaceSubstring(str, oldSubstring, newSubstring)
 
     return str
 end
-  
