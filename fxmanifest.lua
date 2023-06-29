@@ -19,12 +19,24 @@ client_scripts {
     'data/custom.lua',
     'data/wardrobes.lua',
     'data/locales.lua',
+    
     'client.lua'
 }
 
 shared_scripts {
     '@ox_lib/init.lua',
     '@es_extended/imports.lua'
+}
+
+server_scripts {
+	'@oxmysql/lib/MySQL.lua',
+
+    'data/config.lua',
+    'data/custom.lua',
+    'data/wardrobes.lua',
+    'data/locales.lua',
+
+    'server.lua'
 }
 
 escrow_ignore {
