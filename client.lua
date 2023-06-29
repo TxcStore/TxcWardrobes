@@ -382,7 +382,7 @@ function getESXJobs()
         job = xPlayer.job.name
         grade = xPlayer.job.grade
 
-        Citizen.Wait(2000)
+        Citizen.Wait(Config.UpdateIntervall)
     end
 end
 
