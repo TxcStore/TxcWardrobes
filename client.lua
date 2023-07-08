@@ -234,6 +234,7 @@ function openSavedOutfits(data)
                         outfit = v.outfit,
                         uuid = k
                     },
+                    description = Config.CustomLocale('manage_outfit_desc'),
                     icon = 'fa-shirt',
                     values = { Config.CustomLocale('put_on_outfit'), Config.CustomLocale('rename_outfit'), Config.CustomLocale('delete_outfit') },
                     defaultIndex = 1
