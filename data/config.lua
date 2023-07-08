@@ -11,7 +11,7 @@ Config = {}
 
 Config.DevMode = false -- only activate this if you're editing the config
 Config.Locale = 'de' -- choose your locales (If you've created new locales for other languages, let me know via Discord)
-Config.Framework = 'new_esx' -- you can choose between 'esx' and 'new_esx' (v1.9 and above)
+Config.Framework = 'esx' -- you can choose between 'esx' and 'new_esx' (v1.9 and above)
 
 Config.Notify = 'esx' -- choose the notification that is displayed when you change your outfit (available options: 'none', 'esx', 'ox', 'okok', 'qs' and 'custom')
 Config.TextUI = 'esx' -- the text that is displayed when you enter a zone to change your outfit (available options: 'none', 'esx', 'ox', 'okok' and 'custom')
