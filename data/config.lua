@@ -23,12 +23,12 @@ Config.OxTarget = false -- if true you can use ox_target to interact with the wa
 Config.PointDistance = 1.5 -- this changes the interaction distance of the wardrobe
 Config.MarkerDistance = 10.0 -- this changes the draw distance of markers
 
-Config.Menu = 'oxmenu' -- choose the menu that is displayed when you change your outfit 'oxmenu' and 'oxcontext'
+Config.Menu = 'oxmenu' -- choose the menu that is displayed when you change your outfit 'oxmenu' or 'oxcontext'
 Config.MenuPosition = 'top-right' -- choose between 'top-left', 'top-right', 'bottom-left' and 'bottom-right' ! ONLY FOR OXMENU !
 
-Config.UpdateIntervall = 2000 -- time in ms in which the job and the grade are updated
+Config.UpdateIntervall = 2000 -- time in ms in which the job and grade are updated
 
-Config.SavedComponents = { -- choose which components of the clothes are stored in the wardrobe
+Config.SavedComponents = { -- choose which components of the clothes can be stored in the wardrobe
     -- general
     'torso_1',        'torso_2',
     'tshirt_1',       'tshirt_2',
