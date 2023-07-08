@@ -1,6 +1,6 @@
 # TxcWardrobes
 
-### Pre-Release - V0.9.1
+### Pre-Release - V0.9.3
 One of the most versatile **wardrobe systems** out there, which is compatible with the ESX framework. It offers high customisability, in terms of interactions and the visuals itself.
 
 ## Features:
@@ -42,5 +42,5 @@ One of the most versatile **wardrobe systems** out there, which is compatible wi
 # Additional Information:
 
 - Code is accessible: Yes
-- Lines Code (approx.): 310
-- Lines Config (approx.): 160
+- Lines Code (approx.): 590
+- Lines Config (approx.): 280
