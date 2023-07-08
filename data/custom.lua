@@ -88,3 +88,17 @@ Config.CustomHideTextUI = function()
         lib.hideTextUI()
     end
 end
+
+Config.CustomLocale = function(text, toReplace, replaceWith)
+    local current = Config.Locale
+    local fallback = 'en'
+
+    local locale = Locales[current] or Locales[fallback]
+    local string = locale[text] or Locales[fallback][text]
+    
+    if toReplace and replaceWith then
+        string = replaceSubstring(string, toReplace, replaceWith)
+    end
+
+    return string
+end

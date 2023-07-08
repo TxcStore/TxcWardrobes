@@ -1,6 +1,6 @@
 # TxcWardrobes
 
-### Pre-Release - V0.9.1
+### Pre-Release - V0.9.3
 One of the most versatile **wardrobe systems** out there, which is compatible with the ESX framework. It offers high customisability, in terms of interactions and the visuals itself.
 
 ## Features:
@@ -10,8 +10,9 @@ One of the most versatile **wardrobe systems** out there, which is compatible wi
 - Allows players to easily switch into their work outfit
 - There's no limit for the amount of outfits or wardrobes
 - Support for kevlar vests and singular clothing pieces
-- Wardrobes can be unlocked for specific jobs or for everyone
+- Wardrobes can be unlocked for specific jobs and specific grades or for everyone
 - Different grades within a profession can also have different outfits
+- You can also save your own outfits in the wardrobes
 - Configurable notifications when changing outfit:
    - esx
    - okok
@@ -22,8 +23,8 @@ One of the most versatile **wardrobe systems** out there, which is compatible wi
    - normal menu
    - context menu
 - Customisable texts to accommodate all languages:
-- German and English are supported by default
-- Optional markers are available (blips soon)
+   - German and English are supported by default
+- Optional markers and blips are available
 - Optional usage of the targeting system (ox_target)
 
 ## Dependencies:
@@ -38,9 +39,10 @@ One of the most versatile **wardrobe systems** out there, which is compatible wi
 - qs-notify
 - okokNotify
 - okokTextUI
+- TxcBase
 
 # Additional Information:
 
 - Code is accessible: Yes
-- Lines Code (approx.): 310
-- Lines Config (approx.): 160
+- Lines Code (approx.): 800
+- Lines Config (approx.): 280

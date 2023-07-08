@@ -11,6 +11,8 @@ Wardrobes = {
     ['main_wardrobe'] = {
         label = 'LSPD Garderobe', -- the title of the wardrobe menu
         job = 'police', -- the job that is allowed to open the wardrobe ('none' for everyone)
+        grade = 0, -- the grade (and above) is allowed to open the wardrobe (0 for everyone)
+        type = 'both', -- choose between private (only saved outfits), society (only society outfits) and both
         coords = vec3(456.4519, -989.0461, 30.6896),
         polyzones = { -- if you use ox_target this is required
             { -- it is also possible for multiple zones to access the same wardrobe
@@ -23,6 +25,13 @@ Wardrobes = {
             type = 20,
             size = { x = 0.9, y = 0.9, z = 0.9 },
             color = { r = 0, g = 144, b = 255, a = 100 },
+        },
+        blip = { -- if you want a blip this is required
+            sprite = 73,
+            scale = 0.8,
+            color = 29,
+            pos = vector3(456.4519, -989.0461, 30.6896),
+            dp = 4
         },
         options = { 
             {
@@ -41,6 +50,7 @@ Wardrobes = {
                             shoes_1 = 25,     shoes_2 = 0,
                             helmet_1 = 46,    helmet_2 = 0,
                             chain_1 = 0,      chain_2 = 0,
+                            bproof_1 = 0,     bproof_2 = 0
                         }, -- leave out parts that you don't want to change
                         female = {
                             tshirt_1 = 35,  tshirt_2 = 0,
@@ -51,6 +61,7 @@ Wardrobes = {
                             shoes_1 = 27,   shoes_2 = 0,
                             helmet_1 = 45,  helmet_2 = 0,
                             chain_1 = 0,    chain_2 = 0,
+                            bproof_1 = 0,   bproof_2 = 0
                         }
                     }
                 }
