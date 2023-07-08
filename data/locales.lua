@@ -19,41 +19,41 @@ Locales = {
         ['saved_outfits'] = 'Saved outfits',
         ['saved_outfits_desc'] = 'Manage your saved outfits.',
         ['society_outfits'] = 'Society outfits',
-        ['society_outfits_desc'] = "Check out your company's preconfigured outfits.",
+        ['society_outfits_desc'] = "Check out your socities's preconfigured outfits.",
         
         -- manage private outfits
-        ['save_outfit'] = 'Speichern',
-        ['put_on_outfit'] = 'Anziehen',
-        ['rename_outfit'] = 'Umbenennen',
-        ['delete_outfit'] = 'Löschen',
+        ['save_outfit'] = 'Save',
+        ['put_on_outfit'] = 'Wear',
+        ['rename_outfit'] = 'Rename',
+        ['delete_outfit'] = 'Delete',
         
-        ['save_outfit_title'] = 'Speichere Kleidung',
-        ['save_outfit_desc'] = 'Speichere deine aktuell getragene Kleidung.',
-        ['rename_outfit_title'] = 'Umbenenne Kleidung',
-        ['manage_outfit_desc'] = 'Trage, lösche oder benenne deine gespeicherte Kleidung um.',
+        ['save_outfit_title'] = 'Save Outfit',
+        ['save_outfit_desc'] = 'Save the outfit that you are currently wearing',
+        ['rename_outfit_title'] = 'Rename Outfit',
+        ['manage_outfit_desc'] = 'Wear, delete or rename a saved outfit',
 
         -- input
         ['input_placeholder'] = 'Abc',
-        ['input_outfit_name'] = 'Kleidungsname',
-        ['input_outfit_desc'] = 'Gebe einen Namen für die Kleidung ein.',
+        ['input_outfit_name'] = 'Outfit Name',
+        ['input_outfit_desc'] = 'Input a name for your Outfit',
 
         -- civilian
         ['civilian_outfit'] = 'Civilian Outfit',
-        ['civilian_desc'] = "You've your normal clothes back on.",
+        ['civilian_desc'] = "You've put your normal clothes back on.",
 
         -- wearing
         ['civilian_notify'] = "You've put on your normal clothes.",
-        ['outfit_notify'] = "You've put on the {outfit}.",
+        ['outfit_notify'] = "You've put on {outfit}.",
 
         -- success
-        ['outfit_save_success'] = 'Kleidung erfolgreich gespeichert.',
-        ['outfit_rename_success'] = 'Kleidung erfolgreich zu {name} umbenannt.',
-        ['outfit_delete_success'] = 'Kleidung erfolgreich gelöscht.',
+        ['outfit_save_success'] = 'Outfit saved succesfully.',
+        ['outfit_rename_success'] = 'Outfit succesfully renamed to {name}.',
+        ['outfit_delete_success'] = 'Outfit succesfully deleted.',
 
         -- errors
         ['already_wearing'] = 'You are already wearing this outfit.',
         ['no_saved_clothes'] = 'No outfits found',
-        ['no_saved_clothes_desc'] = 'You have not yet saved any clothes.',
+        ['no_saved_clothes_desc'] = 'You have not yet saved any outfits.',
     },
 
     ['de'] = {
