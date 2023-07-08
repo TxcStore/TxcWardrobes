@@ -11,6 +11,7 @@ Wardrobes = {
     ['main_wardrobe'] = {
         label = 'LSPD Garderobe', -- the title of the wardrobe menu
         job = 'police', -- the job that is allowed to open the wardrobe ('none' for everyone)
+        grade = 0, -- the grade (and above) is allowed to open the wardrobe (0 for everyone)
         coords = vec3(456.4519, -989.0461, 30.6896),
         polyzones = { -- if you use ox_target this is required
             { -- it is also possible for multiple zones to access the same wardrobe
@@ -41,6 +42,7 @@ Wardrobes = {
                             shoes_1 = 25,     shoes_2 = 0,
                             helmet_1 = 46,    helmet_2 = 0,
                             chain_1 = 0,      chain_2 = 0,
+                            bproof_1 = 0,     bproof_2 = 0
                         }, -- leave out parts that you don't want to change
                         female = {
                             tshirt_1 = 35,  tshirt_2 = 0,
@@ -51,6 +53,7 @@ Wardrobes = {
                             shoes_1 = 27,   shoes_2 = 0,
                             helmet_1 = 45,  helmet_2 = 0,
                             chain_1 = 0,    chain_2 = 0,
+                            bproof_1 = 0,   bproof_2 = 0
                         }
                     }
                 }
