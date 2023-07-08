@@ -10,7 +10,7 @@ version '0.9.3 Pre-Release'
 dependencies {
     'ox_lib',
     'skinchanger',
-    -- 'TxcBase' -- coming soon
+    -- 'TxcBase' -- optional
     -- 'ox_target' -- optional
 }
 

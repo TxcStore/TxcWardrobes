@@ -43,6 +43,10 @@ Citizen.CreateThread(function()
             setupMarker(k, v)
         end
 
+        if Config.Blips then
+            setupBlip(v)
+        end
+
         if Config.OxTarget then
             setupTarget(k, v)
         else
@@ -58,6 +62,10 @@ end)
 -- sets up all the things needed for ox_target to work
 function setupTarget(name, data)
     local i = 1
+
+    if not data.polyzones or not data.polyzones[1] then
+        return
+    end
 
     for k, v in pairs(data.polyzones) do
         exports.ox_target:addBoxZone({
@@ -116,18 +124,43 @@ function setupTextUI(point, data)
 end
 
 -- sets up all the things needed for the marker to work
-function setupMarker(k, v)
+function setupMarker(name, data)
+    if not data.marker or not data.marker.type then
+        return
+    end
+
     local markerPoint = lib.points.new({
-        coords = v.coords,
+        coords = data.coords,
         distance = Config.MarkerDistance,
-        dunak = k .. '_marker',
+        dunak = name .. '_marker',
     })
 
     function markerPoint:nearby()
-        if ( job == v.job or v.job == 'none' ) and ( grade >= v.grade or v.grade == 0 ) then
-            DrawMarker(v.marker.type, v.coords.x, v.coords.y, v.coords.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, v.marker.size.x, v.marker.size.y, v.marker.size.z, v.marker.color.r, v.marker.color.g, v.marker.color.b, v.marker.color.a, false, true, 2, true, false, false, false)
+        if ( job == data.job or data.job == 'none' ) and ( grade >= data.grade or data.grade == 0 ) then
+            DrawMarker(data.marker.type, data.coords.x, data.coords.y, data.coords.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, data.marker.size.x, data.marker.size.y, data.marker.size.z, data.marker.color.r, data.marker.color.g, data.marker.color.b, data.marker.color.a, false, true, 2, true, false, false, false)
         end
     end
+end
+
+-- sets up all the things needed for the blip to work
+function setupBlip(data)
+    if not data.blip or not data.blip.sprite then
+        return
+    end
+
+    AddTextEntry(data.label, '~a~~a~')
+    local text = data.label
+    local blip = AddBlipForCoord(data.blip.pos)
+
+    SetBlipSprite(blip, data.blip.sprite)
+    SetBlipScale(blip, data.blip.scale)
+    SetBlipDisplay(blip, data.blip.dp)
+    SetBlipColour(blip, data.blip.color)
+    SetBlipAsShortRange(blip, true)
+
+    BeginTextCommandSetBlipName(text)
+    AddTextComponentSubstringPlayerName(text)
+    EndTextCommandSetBlipName(blip)
 end
 
 -- opens the main menu
@@ -138,24 +171,31 @@ function openMainMenu(data)
     Citizen.Wait(50)
 
     if Config.Menu == 'oxmenu' then
+        local elements = {}
+
+        if data.type == 'private' or data.type == 'both' then
+            table.insert(elements, {
+                label = Config.CustomLocale('saved_outfits'),
+                description = Config.CustomLocale('saved_outfits_desc'),
+                args = { 'saved_outfits' },
+                icon = 'fa-floppy-disk'
+            })
+        end
+
+        if data.type == 'society' or data.type == 'both' then
+            table.insert(elements, {
+                label = Config.CustomLocale('society_outfits'),
+                description = Config.CustomLocale('society_outfits_desc'),
+                args = { 'society_outfits' },
+                icon = 'fa-briefcase'
+            })
+        end
+
         lib.registerMenu({
             id = 'txc_wardrobe_main',
             title = data.label,
             position = Config.MenuPosition,
-            options = {
-                {
-                    label = Config.CustomLocale('saved_outfits'),
-                    description = Config.CustomLocale('saved_outfits_desc'),
-                    args = { 'saved_outfits' },
-                    icon = 'fa-floppy-disk'
-                },
-                {
-                    label = Config.CustomLocale('society_outfits'),
-                    description = Config.CustomLocale('society_outfits_desc'),
-                    args = { 'society_outfits' },
-                    icon = 'fa-briefcase'
-                },
-            }
+            options = elements,
         }, function(selected, scrollIndex, args)
             if args[1] == 'saved_outfits' then
                 openSavedOutfits(data)
@@ -170,31 +210,36 @@ function openMainMenu(data)
     end
 
     if Config.Menu == 'oxcontext' then
+        local elements = {}
+
+        if data.type == 'private' or data.type == 'both' then
+            table.insert(elements, {
+                title = Config.CustomLocale('saved_outfits'),
+                description = Config.CustomLocale('saved_outfits_desc'),
+                args = { },
+                icon = 'fa-floppy-disk',
+                onSelect = function(args)
+                    openSavedOutfits(data)
+                end,
+            })
+        end
+
+        if data.type == 'society' or data.type == 'both' then
+            table.insert(elements, {
+                title = Config.CustomLocale('society_outfits'),
+                description = Config.CustomLocale('society_outfits_desc'),
+                args = { },
+                icon = 'fa-briefcase',
+                onSelect = function(args)
+                    openSocietyWardrobe(data)
+                end,
+            })
+        end
+
         lib.registerContext({
             id = 'txc_wardrobe_main',
             title = data.label,
-            position = Config.MenuPosition,
-            options = {
-                {
-                    title = Config.CustomLocale('saved_outfits'),
-                    description = Config.CustomLocale('saved_outfits_desc'),
-                    args = { },
-                    icon = 'fa-floppy-disk',
-                    onSelect = function(args)
-                        print('hallo')
-                        openSavedOutfits(data)
-                    end,
-                },
-                {
-                    title = Config.CustomLocale('society_outfits'),
-                    description = Config.CustomLocale('society_outfits_desc'),
-                    args = { },
-                    icon = 'fa-briefcase',
-                    onSelect = function(args)
-                        openSocietyWardrobe(data)
-                    end,
-                },
-            }
+            options = elements
         })
 
         lib.showContext('txc_wardrobe_main')
@@ -225,6 +270,12 @@ function openSavedOutfits(data)
             })
         else
             for k, v in pairs(savedOutfits) do
+                local icon = 'fa-shirt'
+
+                if workoutfit == v.name then
+                    icon = 'fa-circle-check'
+                end
+
                 table.insert(elements, {
                     label = v.name,
                     args = { 
@@ -235,7 +286,7 @@ function openSavedOutfits(data)
                         uuid = k
                     },
                     description = Config.CustomLocale('manage_outfit_desc'),
-                    icon = 'fa-shirt',
+                    icon = icon,
                     values = { Config.CustomLocale('put_on_outfit'), Config.CustomLocale('rename_outfit'), Config.CustomLocale('delete_outfit') },
                     defaultIndex = 1
                 })
@@ -315,6 +366,154 @@ function openSavedOutfits(data)
     
         lib.showMenu('txc_wardrobe_saved')
     end
+
+    if Config.Menu == 'oxcontext' then
+        local elements = {{
+            title = Config.CustomLocale('save_outfit_title'),
+            description = Config.CustomLocale('save_outfit_desc'),
+            icon = 'fa-download',
+            args = { type = 'saveoutfit' },
+            onSelect = function(args)
+                local input = lib.inputDialog(Config.CustomLocale('save_outfit_title'), { 
+                    {type = 'input', label = Config.CustomLocale('input_outfit_name'), description = Config.CustomLocale('input_outfit_desc'), required = true, min = 3, max = 20, placeholder = Config.CustomLocale('input_placeholder') }
+                })
+ 
+                if not input then
+                    openSavedOutfits(data) 
+                    return 
+                end
+
+                TriggerEvent('skinchanger:getSkin', function(skin)
+                    local outfit = {}
+
+                    for k, v in pairs(Config.SavedComponents) do
+                        outfit[v] = skin[v]
+                    end
+
+                    lib.callback('TxcWardrobes:SavePrivateOutfit', false, function(newOutfitList)
+                        --exports['TxcBase']:debugPrint(GetCurrentResourceName(), 'outfit saved successfully', 'success')
+                        savedOutfits = newOutfitList
+
+                        Config.CustomNotify(Config.CustomLocale('title'), Config.CustomLocale('outfit_save_success'), 'error')
+
+                        openSavedOutfits(data)
+                    end, savedOutfits, outfit, input[1])
+                end)
+            end,
+        }}
+    
+        if not savedOutfits[1] then
+            table.insert(elements, {
+                title = Config.CustomLocale('no_saved_clothes'),
+                description = Config.CustomLocale('no_saved_clothes_desc'),
+                args = { type = 'nooutfits' },
+                icon = 'fa-circle-xmark',
+                onSelect = function()
+                    openSavedOutfits(data)
+                end
+            })
+        else
+            for k, v in pairs(savedOutfits) do
+                local icon = 'fa-shirt'
+
+                if workoutfit == v.name then
+                    icon = 'fa-circle-check'
+                end
+
+                table.insert(elements, {
+                    title = v.name,
+                    args = { 
+                        type = 'private',
+                        name = v.name, 
+                        armor = 0,
+                        outfit = v.outfit,
+                        uuid = k
+                    },
+                    description = Config.CustomLocale('manage_outfit_desc'),
+                    icon = icon,
+                    onSelect = function(args)
+                        openManagingSavedOutfits(data, args)
+                    end
+                })
+            end
+        end
+
+        lib.registerContext({
+            id = 'txc_wardrobe_saved',
+            title = data.label,
+            options = elements
+        })
+
+        lib.showContext('txc_wardrobe_saved')
+    end
+end
+
+function openManagingSavedOutfits(data, args)
+    lib.hideMenu()
+    lib.hideContext()
+
+    Citizen.Wait(50)
+
+    lib.registerContext({
+        id = 'txc_wardrobe_manage_saved',
+        title = args.name,
+        options = {
+            {
+                title = Config.CustomLocale('put_on_outfit'),
+                args = args,
+                description = Config.CustomLocale('manage_outfit_desc'),
+                icon = 'fa-shirt',
+                onSelect = function()
+                    executeOutfitChange(args.type, args.name, args.outfit, args.armor)
+
+                    openSavedOutfits(data)
+                end
+            },
+            {
+                title = Config.CustomLocale('rename_outfit'),
+                args = args,
+                description = Config.CustomLocale('manage_outfit_desc'),
+                icon = 'fa-pen',
+                onSelect = function()
+                    local input = lib.inputDialog(Config.CustomLocale('rename_outfit_title'), { 
+                        {type = 'input', label = Config.CustomLocale('input_outfit_name'), description = Config.CustomLocale('input_outfit_desc'), required = true, min = 3, max = 20, placeholder = Config.CustomLocale('input_placeholder') }
+                    })
+     
+                    if not input then
+                        openSavedOutfits(data)
+                        return 
+                    end
+
+                    lib.callback('TxcWardrobes:RenamePrivateOutfit', false, function(newOutfitList)
+                        --exports['TxcBase']:debugPrint(GetCurrentResourceName(), 'outfit renamed successfully', 'success')
+                        savedOutfits = newOutfitList
+
+                        Config.CustomNotify(Config.CustomLocale('title'), Config.CustomLocale('outfit_rename_success', '{name}', input[1]), 'success')
+
+                        openSavedOutfits(data)
+                    end, savedOutfits, args.uuid, input[1])
+                end
+            },
+            {
+                title = Config.CustomLocale('delete_outfit'),
+                args = args,
+                description = Config.CustomLocale('manage_outfit_desc'),
+                icon = 'fa-trash',
+                onSelect = function()
+                    lib.callback('TxcWardrobes:DeletePrivateOutfit', false, function(newOutfitList)
+                        --exports['TxcBase']:debugPrint(GetCurrentResourceName(), 'outfit deleted successfully', 'success')
+                        savedOutfits = newOutfitList
+
+                        Config.CustomNotify(Config.CustomLocale('title'), Config.CustomLocale('outfit_delete_success'), 'success')
+
+                        openSavedOutfits(data)
+                    end, savedOutfits, args.uuid)
+                end
+            },
+        }
+    })
+
+    lib.showContext('txc_wardrobe_manage_saved')
 end
 
 -- opens the wardrobe menu using ox_lib
@@ -417,6 +616,11 @@ function executeOutfitChange(type, name, outfit, armor)
         return
     end
 
+    if name == '' and workoutfit ~= 'work' then
+        Config.CustomNotify(Config.CustomLocale('title'), Config.CustomLocale('already_wearing'), 'error')
+        return
+    end
+
     if type == 'civ' then
         setCivilianOutfit()
     elseif type == 'private' then
@@ -509,21 +713,3 @@ function replaceSubstring(str, oldSubstring, newSubstring)
 
     return str
 end
-
-RegisterCommand('txctest', function()
-    ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
-        
-    end)
-
-    TriggerEvent('skinchanger:getSkin', function(skin)
-        print(skin.shoes_1)
-        local sex = (skin.sex == 0) and "male" or "female"
-        local uniform = { shoes_1 = 20 }
-
-        TriggerEvent('skinchanger:loadClothes', skin, uniform)
-        TriggerEvent('skinchanger:getSkin', function(skin)
-
-            print(skin.shoes_1)
-        end)
-    end)
-end, false)

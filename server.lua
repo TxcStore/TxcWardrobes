@@ -13,7 +13,7 @@ end)
 -- setup database
 Citizen.CreateThread(function()
     MySQL.insert.await("CREATE TABLE IF NOT EXISTS txc_wardrobes (id VARCHAR(50) NOT NULL, job TINYINT(1) NOT NULL DEFAULT 0, outfits LONGTEXT DEFAULT '[]', PRIMARY KEY (id))", {})
-    exports['TxcBase']:debugPrint(GetCurrentResourceName(), 'database established', 'success')
+    --exports['TxcBase']:debugPrint(GetCurrentResourceName(), 'database established', 'success')
     mySQLReady = true
 end)
 
@@ -29,7 +29,7 @@ lib.callback.register('TxcWardrobes:HandlePlayerJoin', function(source)
     
     if not result[1] then
         MySQL.insert('INSERT INTO `txc_wardrobes` (id, job, outfits) VALUES (?, ?, ?)', { identifier, 0, json.encode({}) })
-        exports['TxcBase']:debugPrint(GetCurrentResourceName(), 'new entry for ' .. identifier .. ' created', 'info')
+        --exports['TxcBase']:debugPrint(GetCurrentResourceName(), 'new entry for ' .. identifier .. ' created', 'info')
         result = {}
     end
 
