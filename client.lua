@@ -79,6 +79,7 @@ function setupTarget(name, data)
                     data = data,
                     icon = 'fa-solid fa-shirt',
                     label = Config.CustomLocale('open_wardrobe'),
+                    distance = Config.TargetDistance,
                     canInteract = function(entity, distance, coords, name)
                         if job ~= data.job and data.job ~= 'none' then
                             return false
