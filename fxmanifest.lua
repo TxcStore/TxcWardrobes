@@ -5,7 +5,7 @@ lua54 'yes'
 
 author 'TxcStore'
 description 'One of the most versatile wardrobe systems out there, which is compatible with the ESX framework. It offers high customisability, in terms of interactions and the visuals itself.' 
-version '0.9.3 Pre-Release'
+version '0.9.4 Pre-Release'
 
 dependencies {
     'ox_lib',
@@ -20,7 +20,13 @@ client_scripts {
     'data/wardrobes.lua',
     'data/locales.lua',
     
-    'client.lua'
+    'client/client.lua',
+    'client/exports.lua'
+}
+
+exports {
+    'saveOutfit',
+    'openWardrobe'
 }
 
 shared_scripts {
@@ -36,11 +42,11 @@ server_scripts {
     'data/wardrobes.lua',
     'data/locales.lua',
 
-    'server.lua'
+    'server/server.lua'
 }
 
 escrow_ignore {
     'data/*.lua',
-    'client.lua',
-    'server.lua'
+    'client/*.lua',
+    'server/*.lua'
 }
