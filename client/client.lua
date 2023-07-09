@@ -262,13 +262,15 @@ function openSavedOutfits(data)
         }}
 
         if not savedOutfits[1] then
-            table.insert(elements, {
-                label = Config.CustomLocale('no_saved_clothes'),
-                description = Config.CustomLocale('no_saved_clothes_desc'),
-                args = { type = 'nooutfits' },
-                icon = 'fa-circle-xmark',
-                close = false
-            })
+            if Config.DisplayNoOutfitsFound then
+                table.insert(elements, {
+                    label = Config.CustomLocale('no_saved_clothes'),
+                    description = Config.CustomLocale('no_saved_clothes_desc'),
+                    args = { type = 'nooutfits' },
+                    icon = 'fa-circle-xmark',
+                    close = false
+                })
+            end
         else
             for k, v in pairs(savedOutfits) do
                 local icon = 'fa-shirt'
@@ -404,15 +406,17 @@ function openSavedOutfits(data)
         }}
     
         if not savedOutfits[1] then
-            table.insert(elements, {
-                title = Config.CustomLocale('no_saved_clothes'),
-                description = Config.CustomLocale('no_saved_clothes_desc'),
-                args = { type = 'nooutfits' },
-                icon = 'fa-circle-xmark',
-                onSelect = function()
-                    openSavedOutfits(data)
-                end
-            })
+            if Config.DisplayNoOutfitsFound then
+                table.insert(elements, {
+                    title = Config.CustomLocale('no_saved_clothes'),
+                    description = Config.CustomLocale('no_saved_clothes_desc'),
+                    args = { type = 'nooutfits' },
+                    icon = 'fa-circle-xmark',
+                    onSelect = function()
+                        openSavedOutfits(data)
+                    end
+                })
+            end
         else
             for k, v in pairs(savedOutfits) do
                 local icon = 'fa-shirt'

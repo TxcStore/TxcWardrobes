@@ -27,6 +27,7 @@ Config.TargetDistance = 2.0 -- this changes the interaction distance of target
 
 Config.Menu = 'oxcontext' -- choose the menu that is displayed when you change your outfit 'oxmenu' or 'oxcontext'
 Config.MenuPosition = 'top-right' -- choose between 'top-left', 'top-right', 'bottom-left' and 'bottom-right' ! ONLY FOR OXMENU !
+Config.DisplayNoOutfitsFound = true -- If true, the menu will show 'No Outfits found' if no saved outfits were found
 
 Config.UpdateIntervall = 2000 -- time in ms in which the job and grade are updated
 
