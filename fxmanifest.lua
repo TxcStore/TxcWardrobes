@@ -20,7 +20,13 @@ client_scripts {
     'data/wardrobes.lua',
     'data/locales.lua',
     
-    'client.lua'
+    'client/client.lua',
+    'client/exports.lua'
+}
+
+exports {
+    'saveOutfit',
+    'openWardrobe'
 }
 
 shared_scripts {
@@ -36,11 +42,11 @@ server_scripts {
     'data/wardrobes.lua',
     'data/locales.lua',
 
-    'server.lua'
+    'server/server.lua'
 }
 
 escrow_ignore {
     'data/*.lua',
-    'client.lua',
-    'server.lua'
+    'client/*.lua',
+    'server/*.lua'
 }
