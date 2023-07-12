@@ -20,6 +20,8 @@ lib.callback.register('TxcWardrobes:HandlePlayerJoin', function(source)
         MySQL.insert('INSERT INTO `txc_wardrobes` (id, job, outfits) VALUES (?, ?, ?)', { identifier, 0, json.encode({}) })
         --exports['TxcBase']:debugPrint(GetCurrentResourceName(), 'new entry for ' .. identifier .. ' created', 'info')
         result = {}
+    else
+        result = json.decode(result[1].outfits)
     end
 
     return result
@@ -41,7 +43,6 @@ lib.callback.register('TxcWardrobes:RenamePrivateOutfit', function(source, outfi
     local xPlayer = ESX.GetPlayerFromId(source)
     local identifier = xPlayer.getIdentifier()
 
-    --table.remove(outfitList, uuid)
     outfitList[uuid].name = outfitName
 
     local result = MySQL.update.await('UPDATE `txc_wardrobes` SET outfits = ? WHERE id = ?', { json.encode(outfitList), identifier })

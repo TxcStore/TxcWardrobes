@@ -704,7 +704,7 @@ end
 function getOutfits()
     local outfitList = lib.callback.await('TxcWardrobes:HandlePlayerJoin')
 
-    savedOutfits = json.decode(outfitList[1].outfits)
+    savedOutfits = outfitList
 end
 
 -- replace the outfit name in the locales
