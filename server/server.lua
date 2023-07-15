@@ -33,7 +33,7 @@ lib.callback.register('TxcWardrobes:SavePrivateOutfit', function(source, outfitL
     local identifier = xPlayer.getIdentifier()
 
     table.insert(outfitList, { name = outfitName, outfit = outfitToSave })
-    local result = MySQL.update.await('UPDATE `txc_wardrobes` SET outfits = ? WHERE id = ?', { json.encode(outfitList), identifier })
+    local result = MySQL.update('UPDATE `txc_wardrobes` SET outfits = ? WHERE id = ?', { json.encode(outfitList), identifier })
 
     return outfitList
 end)
@@ -45,7 +45,7 @@ lib.callback.register('TxcWardrobes:RenamePrivateOutfit', function(source, outfi
 
     outfitList[uuid].name = outfitName
 
-    local result = MySQL.update.await('UPDATE `txc_wardrobes` SET outfits = ? WHERE id = ?', { json.encode(outfitList), identifier })
+    local result = MySQL.update('UPDATE `txc_wardrobes` SET outfits = ? WHERE id = ?', { json.encode(outfitList), identifier })
 
     return outfitList
 end)
@@ -57,7 +57,7 @@ lib.callback.register('TxcWardrobes:DeletePrivateOutfit', function(source, outfi
 
     table.remove(outfitList, uuid)
 
-    local result = MySQL.update.await('UPDATE `txc_wardrobes` SET outfits = ? WHERE id = ?', { json.encode(outfitList), identifier })
+    local result = MySQL.update('UPDATE `txc_wardrobes` SET outfits = ? WHERE id = ?', { json.encode(outfitList), identifier })
 
     return outfitList
 end)
