@@ -323,7 +323,6 @@ function openSavedOutfits(data)
                     end
 
                     lib.callback('TxcWardrobes:SavePrivateOutfit', false, function(newOutfitList)
-                        --exports['TxcBase']:debugPrint(GetCurrentResourceName(), 'outfit saved successfully', 'success')
                         savedOutfits = newOutfitList
 
                         Config.CustomNotify(Config.CustomLocale('title'), Config.CustomLocale('outfit_save_success'), 'error')
@@ -347,7 +346,6 @@ function openSavedOutfits(data)
                     end
 
                     lib.callback('TxcWardrobes:RenamePrivateOutfit', false, function(newOutfitList)
-                        --exports['TxcBase']:debugPrint(GetCurrentResourceName(), 'outfit renamed successfully', 'success')
                         savedOutfits = newOutfitList
 
                         Config.CustomNotify(Config.CustomLocale('title'), Config.CustomLocale('outfit_rename_success', '{name}', input[1]), 'success')
@@ -356,7 +354,6 @@ function openSavedOutfits(data)
                     end, savedOutfits, args.uuid, input[1])
                 elseif scrollIndex == 3 then -- delete
                     lib.callback('TxcWardrobes:DeletePrivateOutfit', false, function(newOutfitList)
-                        --exports['TxcBase']:debugPrint(GetCurrentResourceName(), 'outfit deleted successfully', 'success')
                         savedOutfits = newOutfitList
 
                         Config.CustomNotify(Config.CustomLocale('title'), Config.CustomLocale('outfit_delete_success'), 'success')
@@ -394,7 +391,6 @@ function openSavedOutfits(data)
                     end
 
                     lib.callback('TxcWardrobes:SavePrivateOutfit', false, function(newOutfitList)
-                        --exports['TxcBase']:debugPrint(GetCurrentResourceName(), 'outfit saved successfully', 'success')
                         savedOutfits = newOutfitList
 
                         Config.CustomNotify(Config.CustomLocale('title'), Config.CustomLocale('outfit_save_success'), 'error')
@@ -490,7 +486,6 @@ function openManagingSavedOutfits(data, args)
                     end
 
                     lib.callback('TxcWardrobes:RenamePrivateOutfit', false, function(newOutfitList)
-                        --exports['TxcBase']:debugPrint(GetCurrentResourceName(), 'outfit renamed successfully', 'success')
                         savedOutfits = newOutfitList
 
                         Config.CustomNotify(Config.CustomLocale('title'), Config.CustomLocale('outfit_rename_success', '{name}', input[1]), 'success')
@@ -506,7 +501,6 @@ function openManagingSavedOutfits(data, args)
                 icon = 'fa-trash',
                 onSelect = function()
                     lib.callback('TxcWardrobes:DeletePrivateOutfit', false, function(newOutfitList)
-                        --exports['TxcBase']:debugPrint(GetCurrentResourceName(), 'outfit deleted successfully', 'success')
                         savedOutfits = newOutfitList
 
                         Config.CustomNotify(Config.CustomLocale('title'), Config.CustomLocale('outfit_delete_success'), 'success')
