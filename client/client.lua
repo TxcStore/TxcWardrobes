@@ -5,7 +5,7 @@ local job = nil
 local grade = 0
 local workoutfit = ''
 
-local savedOutfits = {}
+savedOutfits = {}
 
 -- setup framework
 Citizen.CreateThread(function()
