@@ -18,8 +18,11 @@ lib.callback.register('TxcWardrobes:HandlePlayerJoin', function(source)
     
     if not result[1] then
         MySQL.insert('INSERT INTO `txc_wardrobes` (id, job, outfits) VALUES (?, ?, ?)', { identifier, 0, json.encode({}) })
-        --exports['TxcBase']:debugPrint(GetCurrentResourceName(), 'new entry for ' .. identifier .. ' created', 'info')
+        Config.CustomPrint("new entry for '" .. identifier .. "' created", 'info') 
+
         result = {}
+    else
+        result = json.decode(result[1].outfits)
     end
 
     return result
@@ -31,7 +34,9 @@ lib.callback.register('TxcWardrobes:SavePrivateOutfit', function(source, outfitL
     local identifier = xPlayer.getIdentifier()
 
     table.insert(outfitList, { name = outfitName, outfit = outfitToSave })
-    local result = MySQL.update.await('UPDATE `txc_wardrobes` SET outfits = ? WHERE id = ?', { json.encode(outfitList), identifier })
+    Config.CustomPrint("new outfit '" .. outfitName .. "' for '" .. identifier .. "' saved", 'info')
+
+    local result = MySQL.update('UPDATE `txc_wardrobes` SET outfits = ? WHERE id = ?', { json.encode(outfitList), identifier })
 
     return outfitList
 end)
@@ -41,10 +46,10 @@ lib.callback.register('TxcWardrobes:RenamePrivateOutfit', function(source, outfi
     local xPlayer = ESX.GetPlayerFromId(source)
     local identifier = xPlayer.getIdentifier()
 
-    --table.remove(outfitList, uuid)
     outfitList[uuid].name = outfitName
+    Config.CustomPrint("outfit from '" .. identifier .. "' to '" .. outfitName .. "' renamed", 'info')
 
-    local result = MySQL.update.await('UPDATE `txc_wardrobes` SET outfits = ? WHERE id = ?', { json.encode(outfitList), identifier })
+    local result = MySQL.update('UPDATE `txc_wardrobes` SET outfits = ? WHERE id = ?', { json.encode(outfitList), identifier })
 
     return outfitList
 end)
@@ -55,8 +60,9 @@ lib.callback.register('TxcWardrobes:DeletePrivateOutfit', function(source, outfi
     local identifier = xPlayer.getIdentifier()
 
     table.remove(outfitList, uuid)
+    Config.CustomPrint("outfit from '" .. identifier .. "' with id '" .. uuid .. "' deleted", 'info') 
 
-    local result = MySQL.update.await('UPDATE `txc_wardrobes` SET outfits = ? WHERE id = ?', { json.encode(outfitList), identifier })
+    local result = MySQL.update('UPDATE `txc_wardrobes` SET outfits = ? WHERE id = ?', { json.encode(outfitList), identifier })
 
     return outfitList
 end)

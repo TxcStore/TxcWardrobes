@@ -102,3 +102,9 @@ Config.CustomLocale = function(text, toReplace, replaceWith)
 
     return string
 end
+
+Config.CustomPrint = function(text, type)
+    if GetResourceState('TxcBase') == 'started' then 
+        exports['TxcBase']:debugPrint(GetCurrentResourceName(), text, type)
+    end
+end
