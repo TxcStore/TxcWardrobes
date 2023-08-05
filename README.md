@@ -1,6 +1,6 @@
 # TxcWardrobes
 
-### Pre-Release - V0.9.4
+### Pre-Release - V0.9.5
 One of the most versatile **wardrobe systems** out there, which is compatible with the ESX framework. It offers high customisability, in terms of interactions and the visuals itself.
 
 ## Features:
